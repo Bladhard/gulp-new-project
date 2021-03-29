@@ -1,0 +1,116 @@
+// main: ./main.less
+
+
+/* Личные настройки по сбросу стандартных значений
+================================================================= */
+
+/* не учитывать padding наружу от длины для всех элементов страницы */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+/* Убираем внешние отступы и внутренние отступы */
+// body,
+div,
+dl,
+dt,
+dd,
+ul[class],
+ol[class],
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+
+/* Делаем по умолчанию элементы блочными */
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+/* Делаем для Button курсор в виде руки по умолчанию */
+.button,
+.button {
+  cursor: pointer;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Ссылки, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Убираем подчеркивание у ссылок */
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* Убираем контуры при фокусе и активном выборе */
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* Делаем все изображения адаптивными */
+// img {
+//     display: block;
+//     max-width: 100%;
+//     height: auto;
+// }
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+  font: inherit;
+}
+
+
+body._lock {
+  overflow: hidden;
+}

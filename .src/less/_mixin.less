@@ -1,0 +1,185 @@
+// main: ./main.less
+
+// ================={ MIXIN VARS }=================
+
+@__container: @maxWidthContainer + 30;
+@__px: 'px';
+
+// ================={ CONTAINER }=================
+
+// Standart
+.container() {
+    width: 100%;
+    max-width: ~"@{__container}@{__px}";
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+// Bootstrap
+.container-bootstrap() {
+    width: 100%;
+    max-width: ~"@{__container}@{__px}";
+    margin: 0 auto;
+    padding: 0 15px;
+
+  @media (max-width: 575.98px) {
+    & {
+      max-width: 540px;
+      padding: 0 10px;
+    }
+  }
+
+  @media (min-width: 767.98px) {
+    & {
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 991.98px) {
+    & {
+      max-width: 960px;
+    }
+  }
+
+  @media (min-width: 1199.98px) {
+    & {
+      max-width: 1140px;
+    }
+  }
+}
+
+
+// ================={ ANIMATIONS }=================
+
+// Анимация для свойств
+.anim(@obj: all, @obj2: none, @obj3: none, @time: .3s, @func: linear) {
+    & {transition+_: @obj @time @func;}
+    & when not (@obj2 = none) { transition+_:~','@obj2 @time @func; }
+    & when not (@obj3 = none) { transition+_:~','@obj3 @time @func; }
+}
+
+// ================================================
+
+
+
+// Фон с изображением
+.background(@param) {
+    background: url(@param) no-repeat center top / cover ;
+}
+
+
+
+// ================={ ADAPTATION }=================
+
+// STANDART
+// __________________________
+
+// Свои размеры адаптации
+.media(@min, @max, @ruleset) {
+    @media (min-width: @min) and (max-width: (@max - 1)) {
+      @ruleset();
+    }
+}
+
+// Адаптивное css свойство
+
+// Только если меньше контейнера
+.adaptive-values(@property, @mainSize, @minSize, @type: 1, @ruleset: {}) when (@type = 1) {
+    @addSize: @mainSize - @minSize;
+    @{property}:~"@{mainSize}@{__px}";
+    @media (max-width: ~"@{__container}@{__px}") {
+        @{property}: calc(~"@{minSize}@{__px}" + @addSize * ((100vw - 320px) / (@maxWidthContainer - 320)));
+        @ruleset();
+    }
+}
+
+// Только если больше контейнера
+.adaptive-values(@property, @mainSize, @minSize, @type, @ruleset: {}) when (@type = 2) {
+    @addSize: @mainSize - @minSize;
+    @{property}:~"@{mainSize}@{__px}";
+    @media (min-width: ~"@{__container}@{__px}") {
+        @{property}: calc(~"@{minSize}@{__px}" + @addSize * ((100vw - 320px) / ( @maxWidth - 320)));
+        @ruleset();
+    }
+}
+
+// Работает в двух направлениях
+.adaptive-values(@property, @mainSize, @minSize, @type) when (@type = 3) {
+    @addSize: @mainSize - @minSize;
+    @{property}: calc(~"@{minSize}@{__px}" + @addSize * ((100vw - 320px) / (@maxWidth - 320)));
+}
+
+//Дополнытельное свойство к адаптиву 1
+// Только если меньше контейнера
+.avalue(@property, @mainSize, @minSize, @type: 1) when (@type = 1) {
+    @addSize: @mainSize - @minSize;
+    @{property}: calc(~"@{minSize}@{__px}" + @addSize * ((100vw - 320px) / (@maxWidthContainer - 320)));
+}
+//Дополнытельное свойство к адаптиву 2
+// Только если больше контейнера
+.avalue(@property, @mainSize, @minSize, @type) when (@type = 2) {
+    @addSize: @mainSize - @minSize;
+    @{property}: calc(~"@{minSize}@{__px}" + @addSize * ((100vw - 320px) / (@maxWidth - 320)));;
+}
+
+
+// BOOTSTRAP
+// __________________________
+
+// Экстрамалые девайсы («портретные телефоны», < 576px)
+.xs(@ruleset) {
+    @media (max-width: 575.98px) {
+        & {
+            @ruleset()
+        }
+    }
+}
+
+// Малые девайсы («ландшафтные», >= 575px)
+.sm(@ruleset) {
+    @media (min-width: 576px) and (max-width: 767.98px) {
+        & {
+            @ruleset()
+        }
+    }
+}
+
+// Средние девайсы («таблетки», >= 768px)
+.md(@ruleset) {
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        & {
+            @ruleset()
+        }
+    }
+}
+
+// Большие девайсы (большие десктопы, >= 992px)
+.lg(@ruleset) {
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+        & {
+            @ruleset()
+        }
+    }
+}
+
+// Большие девайсы (большие десктопы, >= 1200px)
+.xl(@ruleset) {
+    @media (min-width: 1200px) {
+        & {
+            @ruleset()
+        }
+    }
+}
+
+// ================================================
+
+.font(@font_name, @file_name, @weight, @style) {
+    @font-face {
+        font-family: @font_name;
+        font-display: swap;
+        src: url("../fonts/@{file_name}.woff") format("woff"),
+        url("../fonts/@{file_name}.woff2") format("woff2");
+        font-weight: @weight;
+        font-style: @style;
+    }
+}

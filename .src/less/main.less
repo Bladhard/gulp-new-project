@@ -1,0 +1,29 @@
+// out: false
+// ../style.css, compress: false
+//compress: false
+// ================={ PRE-SETUP }=================
+@import "_vars";
+@import "_mixin";
+@import "smart-grid";
+// Resetting standard values
+// @import "./include/normalize";
+// @import "./include/reset";
+// ================={ GLOBAL SETUP }=================
+@import "./include/fonts";
+
+html {
+    font-size: 16px;
+}
+
+body {
+    color: black;
+    /* Подключаем шрифты */
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+}
+
+// ================={ BLOCKS }=================
+@import "./blocks/header";
+// ================={ HELPERS }=================
+// @import "_helpers";
