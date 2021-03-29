@@ -1,9 +1,9 @@
-let project_folder = require('path').basename(__dirname)
-let source_folder = '.src'
+const project_folder = require('path').basename(__dirname)
+const source_folder = '.src'
 
-let fs = require('fs')
+const fs = require('fs')
 
-let path = {
+const path = {
     build: {
         html: project_folder + '/',
         css: project_folder + '/style/',

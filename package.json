@@ -1,6 +1,6 @@
 {
   "name": "gulp-new-project",
-  "version": "1.8.9",
+  "version": "1.9.0",
   "description": "Сборка Gulp",
   "main": "index.html",
   "scripts": {
