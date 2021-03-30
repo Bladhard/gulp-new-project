@@ -1,6 +1,6 @@
 {
   "name": "gulp-new-project",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Сборка Gulp",
   "main": "index.html",
   "scripts": {
@@ -11,7 +11,6 @@
   "devDependencies": {
     "browser-sync": "^2.26.14",
     "del": "^6.0.0",
-    "fs": "^0.0.1-security",
     "gulp": "^4.0.2",
     "gulp-changed": "^4.0.2",
     "gulp-clean-css": "^4.3.0",

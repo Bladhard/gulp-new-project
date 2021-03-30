@@ -208,35 +208,40 @@ function images() {
         .pipe(browsersync.stream())
 }
 
-/*=======================| SVG |*/
+/*=======================| SVG |=======================*/
 
-function svg() {
-    return src([source_folder + '/img/iconsprite/*.svg'])
-        .pipe(
-            svgSprite({
-                mode: {
-                    stack: {
-                        sprite: '../icon/sprite.svg',
-                        example: true,
-                    },
-                },
-                shape: {
-                    transform: [
+const configsvg = {
+    mode: {
+        symbol: {
+            inline: true,
+            sprite: '../icon/sprite.svg',
+            example: true,
+        },
+        css: false, // Create a «css» sprite
+        view: false, // Create a «view» sprite
+        defs: false, // Create a «defs» sprite
+        stack: false, // Create a «stack» sprite
+    },
+    shape: {
+        transform: [
+            {
+                svgo: {
+                    plugins: [
                         {
-                            svgo: {
-                                plugins: [
-                                    {
-                                        removeAttrs: {
-                                            attrs: ['class', 'data-name', 'fill'],
-                                        },
-                                    },
-                                ],
+                            removeAttrs: {
+                                attrs: ['class', 'data-name', 'fill*'],
                             },
                         },
                     ],
                 },
-            })
-        )
+            },
+        ],
+    },
+}
+
+function svg() {
+    return src([source_folder + '/img/iconsprite/*.svg'])
+        .pipe(svgSprite(configsvg))
         .pipe(dest(path.build.img))
         .pipe(browsersync.stream())
 }
@@ -338,7 +343,7 @@ function clear() {
 }
 
 function release(cb) {
-    var files = ['img/stack', 'js/maps', 'style/maps']
+    var files = ['img/symbol', 'js/maps', 'style/maps']
     files.forEach(element => {
         filespath = path.clear + element
         console.log('Удален ' + filespath)

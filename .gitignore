@@ -1,3 +1,5 @@
+/**
+
 !/.src/
 
 !.prettierrc.js
@@ -6,7 +8,4 @@
 
 !package.json
 
-
-node_modules
-
-package-lock.json
+!README.md
