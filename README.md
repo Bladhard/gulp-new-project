@@ -32,11 +32,17 @@
 * Название шривтов не должны иметь пробелов, использовать`( -, _ )`
 * Формат наименования шрифта должен быть такого типа:
 `name-bold*.woff` или `name-bold*-italic.woff` (Регистр не имеет значения)
-> Пример:
-> > Banny-ExtraBoldRound-italic.woff
 
-> Результат:
-> > .font("Banny", "Banny-ExtraBoldRound-italic", "800", "italic");
+*Пример:*
+Banny-ExtraBoldRound-italic.woff
+
+*Результат:* 
+
+Миксин *Less*
+```less
+.font("Banny", "Banny-ExtraBoldRound-italic", "800", "italic");
+```
+Исходный код *CSS*
 ```css
 @font-face {
   font-family: Banny;
