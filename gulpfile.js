@@ -379,6 +379,6 @@ exports.js = js
 exports.watchFiles = watchFiles
 exports.browserSync = browserSync
 
-exports.release = series(dev, clear, parallel(html, css, js, images, svg), fonts, fontsStyle, prod)
+exports.build = series(dev, clear, parallel(html, css, js, images, svg), fonts, fontsStyle, prod)
 const build = series(clear, smartGrid, parallel(html, css, js, images, svg), fonts, fontsStyle)
 exports.default = series(build, parallel(browserSync, watchFiles))

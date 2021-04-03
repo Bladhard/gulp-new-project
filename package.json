@@ -2,9 +2,10 @@
   "name": "gulp-new-project",
   "version": "2.0.1",
   "description": "Сборка Gulp",
-  "main": "index.html",
+  "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp",
+    "release": "gulp build"
   },
   "author": "Bladhard",
   "license": "ISC",
