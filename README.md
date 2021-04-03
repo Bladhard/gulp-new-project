@@ -4,6 +4,7 @@
 * [**del**](https://www.npmjs.com/package/del) - Удаление каталогов и файлов
 * [**browser-sync**](https://browsersync.io) - Синхронизация кода с результатами в браузере
 * [**gulp**](https://gulpjs.com) - Сборщик Gulp
+* [**gulp-if**](https://www.npmjs.com/package/gulp-if) - Помогает в сборке
 * [**gulp-zip**](https://www.npmjs.com/package/gulp-zip) - Архивируем проект в zip
 * [**gulp-changed**](https://www.npmjs.com/package/gulp-changed) - Позволяет обрабатывать только те файлы которые изменились
 * [**gulp-clean-css**](https://www.npmjs.com/package/gulp-clean-css) - Минификация и оптимизация CSS файлов
@@ -47,7 +48,7 @@
   font-family: Banny;
   font-display: swap;
   src: url(../fonts/Banny-ExtraBoldRound-italic.woff) format("woff");
-  font-weight: "800";
+  font-weight: 800;
   font-style: italic
 }
 ```
@@ -92,13 +93,16 @@ function fontsStyle(done) {
                 let fontname = items[i].split('.')
                 fontname = fontname[0]
                 let font = fontname.split(/[-_]/)[0]
-                console.log(fontname.split(/[-_]/))
                 let weight = checkWeight(fontname.split(/[-_]/)[1])
                 let style = fontname.split(/[-_]/)[2] || 'normal'
+                console.log(`Шрифт ${fontname} готов! - ${font}, ${weight}, ${style}`)
+
                 if (c_fontname != fontname) {
-                    fs.appendFile(source_folder + '/less/include/fonts.less',
-                    '.font("' + font + '", "' + fontname + '", "' + weight + '", "' + style + '");\r\n',
-                     done)
+                    fs.appendFile(
+                        source_folder + '/less/include/fonts.less',
+                        `.font("${font}", "${fontname}", ${weight}, "${style}");\r\n`,
+                        done
+                    )
                 }
                 c_fontname = fontname
             }
