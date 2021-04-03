@@ -33,11 +33,10 @@
 * Формат наименования шрифта должен быть такого типа:
 `name-bold*.woff` или `name-bold*-italic.woff` (Регистр не имеет значения)
 
-*Пример:*
+#### Пример:
 Banny-ExtraBoldRound-italic.woff
 
-*Результат:* 
-
+#### Результат:
 Миксин *Less*
 ```less
 .font("Banny", "Banny-ExtraBoldRound-italic", "800", "italic");
