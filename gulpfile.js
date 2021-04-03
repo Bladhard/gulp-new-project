@@ -272,9 +272,8 @@ function checkWeight(fontname) {
         regular: 400,
         medium: 500,
         semibold: 600,
-        semi: 600,
-        bold: 700,
         extrabold: 800,
+        bold: 700,
         heavy: 700,
         black: 900,
     }
@@ -282,6 +281,7 @@ function checkWeight(fontname) {
     for (let keys of Object.keys(fontStyle)) {
         if (lowCase.indexOf(keys) > -1) {
             if (lowCase.indexOf(keys)) {
+                return fontStyle[keys]
             } else {
                 return fontStyle[keys]
             }
@@ -300,8 +300,10 @@ function fontsStyle(done) {
             for (var i = 0; i < items.length; i++) {
                 let fontname = items[i].split('.')
                 fontname = fontname[0]
-                let font = fontname.split('-')[0]
-                let weight = checkWeight(fontname.split('-')[1])
+                let font = fontname.split(/[-_]/)[0]
+                console.log(fontname.split(/[-_]/))
+                let weight = checkWeight(fontname.split(/[-_]/)[1])
+                let style = fontname.split(/[-_]/)[2] || 'normal'
 
                 if (c_fontname != fontname) {
                     fs.appendFile(
@@ -312,7 +314,9 @@ function fontsStyle(done) {
                             fontname +
                             '", "' +
                             weight +
-                            '", "normal");\r\n',
+                            '", "' +
+                            style +
+                            '");\r\n',
                         done
                     )
                 }
