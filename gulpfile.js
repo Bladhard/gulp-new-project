@@ -3,6 +3,8 @@ const source_folder = '.src'
 
 const fs = require('fs')
 
+let isDev = false
+
 const path = {
     build: {
         html: project_folder + '/',
@@ -53,6 +55,7 @@ const notify = require('gulp-notify')
 const concat = require('gulp-concat')
 const webp = require('gulp-webp')
 const less = require('gulp-less')
+const gulpif = require('gulp-if')
 const zip = require('gulp-zip')
 const mpath = require('path')
 const del = require('del')
@@ -110,16 +113,19 @@ function css() {
                 },
             })
         )
-        .pipe(concat('style.css'))
-        .pipe(dest(path.build.css))
+        .pipe(gulpif(isDev, concat('style.css')))
+        .pipe(gulpif(isDev, dest(path.build.css)))
         .pipe(
-            cleanCSS({
-                level: {
-                    2: {
-                        restructureRules: true,
+            gulpif(
+                isDev,
+                cleanCSS({
+                    level: {
+                        2: {
+                            restructureRules: true,
+                        },
                     },
-                },
-            })
+                })
+            )
         )
         .pipe(concat('style.min.css'))
         .pipe(sourcemaps.write('./maps'))
@@ -148,9 +154,9 @@ function js() {
                 includePaths: [__dirname + '/.src/js'],
             })
         )
-        .pipe(concat('script.js'))
-        .pipe(dest(path.build.js))
-        .pipe(uglify())
+        .pipe(gulpif(isDev, concat('script.js')))
+        .pipe(gulpif(isDev, dest(path.build.js)))
+        .pipe(gulpif(isDev, uglify()))
         .pipe(concat('script.min.js'))
         .pipe(sourcemaps.write('./maps'))
         .pipe(dest(path.build.js))
@@ -195,14 +201,17 @@ function images() {
         .pipe(src([path.src.img, '!.src/img/iconsprite/**']))
         .pipe(changed(path.build.img))
         .pipe(
-            imagemin([
-                imagemin.gifsicle({ interlaced: true }),
-                imagemin.mozjpeg({ quality: 75, progressive: true }),
-                imagemin.optipng({ optimizationLevel: 3 }),
-                imagemin.svgo({
-                    plugins: [{ removeViewBox: false }, { cleanupIDs: false }],
-                }),
-            ])
+            gulpif(
+                isDev,
+                imagemin([
+                    imagemin.gifsicle({ interlaced: true }),
+                    imagemin.mozjpeg({ quality: 75, progressive: true }),
+                    imagemin.optipng({ optimizationLevel: 3 }),
+                    imagemin.svgo({
+                        plugins: [{ removeViewBox: false }, { cleanupIDs: false }],
+                    }),
+                ])
+            )
         )
         .pipe(dest(path.build.img))
         .pipe(browsersync.stream())
@@ -301,22 +310,14 @@ function fontsStyle(done) {
                 let fontname = items[i].split('.')
                 fontname = fontname[0]
                 let font = fontname.split(/[-_]/)[0]
-                console.log(fontname.split(/[-_]/))
                 let weight = checkWeight(fontname.split(/[-_]/)[1])
                 let style = fontname.split(/[-_]/)[2] || 'normal'
+                console.log(`Шрифт ${fontname} готов! - ${font}, ${weight}, ${style}`)
 
                 if (c_fontname != fontname) {
                     fs.appendFile(
                         source_folder + '/less/include/fonts.less',
-                        '.font("' +
-                            font +
-                            '", "' +
-                            fontname +
-                            '", "' +
-                            weight +
-                            '", "' +
-                            style +
-                            '");\r\n',
+                        `.font("${font}", "${fontname}", ${weight}, "${style}");\r\n`,
                         done
                     )
                 }
@@ -329,8 +330,8 @@ function fontsStyle(done) {
 
 /*=====================================================*/
 
-function smartGrid() {
-    smartgrid(source_folder + '/less/', settings)
+function smartGrid(cb) {
+    smartgrid(source_folder + '/less/', settings), cb()
 }
 
 function watchFiles() {
@@ -346,7 +347,11 @@ function clear() {
     return del(path.clear)
 }
 
-function release(cb) {
+function dev(cb) {
+    return (isDev = true), cb()
+}
+
+function prod(cb) {
     var files = ['img/symbol', 'js/maps', 'style/maps']
     files.forEach(element => {
         filespath = path.clear + element
@@ -374,6 +379,6 @@ exports.js = js
 exports.watchFiles = watchFiles
 exports.browserSync = browserSync
 
-exports.release = release
-const build = series(fontsStyle, clear, html, parallel(smartGrid, js, images, svg, fonts))
-exports.default = parallel(build, browserSync, watchFiles)
+exports.release = series(dev, clear, parallel(html, css, js, images, svg), fonts, fontsStyle, prod)
+const build = series(clear, smartGrid, parallel(html, css, js, images, svg), fonts, fontsStyle)
+exports.default = series(build, parallel(browserSync, watchFiles))
