@@ -1,32 +1,32 @@
 # Сборка проекта на Gulp 4
 
 ## Модули:
-1. **`browser-sync`** - Синхронизация кода с результатами в браузере
-1. **`del`** - Удаление каталогов и файлов
-1. **`gulp`** - Сборщик Gulp
-1. **`gulp-zip`** - Архивируем проект в zip
-1. **`gulp-changed`** - Позволяет обрабатывать только те файлы которые изменились
-1. **`gulp-clean-css`** - Минификация и оптимизация CSS файлов
-1. **`gulp-concat`** -  Переименовывает файлы (Объединение нескольких файлов в один)
-1. **`gulp-include`** - Объединяет файлы (использую для JS позволяет использовать sourcemaps)
-1. **`gulp-file-include`** - Объединяет файлы (использую для html)
-1. **`gulp-plumber`** - Позволяет работать gulp после появления ошибки
-1. **`gulp-notify`** - Показывает уведомление об ошибки
-1. **`gulp-sourcemaps`** - Cоздает карту кода для консоли в браузере
-1. **`gulp-fonter`** - Cоздает шрифт TTF из OTF-шрифта
-1. **`gulp-ttf2woff`** - Cоздает шрифт WOFF из TTF-шрифта
-1. **`gulp-ttf2woff2`** - Cоздает шрифт WOFF2 из TTF-шрифта
-1. **`gulp-svg-sprite`** - Создание SVG спрайтов
-1. **`gulp-uglify-es`** - Сжатие и оптимизация Java Script кода
-1. **`gulp-imagemin`** - Для сжатия изображений
-1. **`webp-converter`** - Нужен для работы с webp версия 2.2.3!
-1. **`gulp-webp`** - Преобразование изображения в формат файла webp
-1. **`gulp-webp-html`** - Автодополнение в html правил совместимости с webp
-1. **`gulp-webpcss`** - Автодополнение в css правил совместимости с webp
-1. **`smart-grid`** - Адаптивная верстка через css
-1. **`gulp-less`** - Компиляция Less файлов
-1. **`less-plugin-autoprefix`** - Добавляет префиксы в CSS код
-1. **`gulp-group-css-media-queries`** - Группирует все медиа запросы в css в конце файла
+* [**del**](https://www.npmjs.com/package/del) - Удаление каталогов и файлов
+* [**browser-sync**](https://browsersync.io) - Синхронизация кода с результатами в браузере
+* [**gulp**](https://gulpjs.com) - Сборщик Gulp
+* [**gulp-zip**](https://www.npmjs.com/package/gulp-zip) - Архивируем проект в zip
+* [**gulp-changed**](https://www.npmjs.com/package/gulp-changed) - Позволяет обрабатывать только те файлы которые изменились
+* [**gulp-clean-css**](https://www.npmjs.com/package/gulp-clean-css) - Минификация и оптимизация CSS файлов
+* [**gulp-concat**](https://www.npmjs.com/package/gulp-concat) -  Переименовывает файлы (Объединение нескольких файлов в один)
+* [**gulp-include**](https://www.npmjs.com/package/gulp-include) - Объединяет файлы (использую для JS позволяет использовать sourcemaps)
+* [**gulp-file-include**](https://www.npmjs.com/package/gulp-file-include) - Объединяет файлы (использую для html)
+* [**gulp-plumber**](https://www.npmjs.com/package/gulp-plumber) - Позволяет работать gulp после появления ошибки
+* [**gulp-notify**](https://www.npmjs.com/package/gulp-notify) - Показывает уведомление об ошибки
+* [**gulp-sourcemaps**](https://www.npmjs.com/package/gulp-sourcemaps) - Cоздает карту кода для консоли в браузере
+* [**gulp-fonter**](https://www.npmjs.com/package/gulp-fonter) - Cоздает шрифт TTF из OTF-шрифта
+* [**gulp-ttf2woff**](https://www.npmjs.com/package/gulp-ttf2woff) - Cоздает шрифт WOFF из TTF-шрифта
+* [**gulp-ttf2woff2**](https://www.npmjs.com/package/gulp-ttf2woff2) - Cоздает шрифт WOFF2 из TTF-шрифта
+* [**gulp-svg-sprite**](https://www.npmjs.com/package/gulp-svg-sprite) - Создание SVG спрайтов
+* [**gulp-uglify-es**](https://www.npmjs.com/package/gulp-uglify-es) - Сжатие и оптимизация Java Script кода
+* [**gulp-imagemin**](https://www.npmjs.com/package/gulp-imagemin) - Для сжатия изображений
+* [**webp-converter**](https://www.npmjs.com/package/webp-converter) - Нужен для работы с webp версия 2.2.3!
+* [**gulp-webp**](https://www.npmjs.com/package/gulp-webp) - Преобразование изображения в формат файла webp
+* [**gulp-webp-html**](https://www.npmjs.com/package/gulp-webp-html) - Автодополнение в html правил совместимости с webp
+* [**gulp-webpcss**](https://www.npmjs.com/package/gulp-webpcss) - Автодополнение в css правил совместимости с webp
+* [**smart-grid**](https://www.npmjs.com/package/smart-grid) - Адаптивная верстка через css
+* [**gulp-less**](https://www.npmjs.com/package/gulp-less) - Компиляция Less файлов
+* [**less-plugin-autoprefix**](https://www.npmjs.com/package/less-plugin-autoprefix) - Добавляет префиксы в CSS код
+* [**gulp-group-css-media-queries**](https://www.npmjs.com/package/gulp-group-css-media-queries) - Группирует все медиа запросы в css в конце файла
 
 ## Автоматическое Формирование `@font-face`:
 * Название шривтов не должны иметь пробелов, использовать`( -, _ )`
