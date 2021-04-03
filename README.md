@@ -28,18 +28,21 @@
     "less-plugin-autoprefix": Добавляет префиксы в CSS код
     "gulp-group-css-media-queries": Группирует все медиа запросы в css в конце файла
 
-### Автоматическое Формирование ```***@font-face***```:
-* Название шривтов не должны иметь пробелов, использовать(-,_)
+### Автоматическое Формирование `@font-face`:
+* Название шривтов не должны иметь пробелов, использовать`( -, _ )`
 * Формат наименования шрифта должен быть такого типа:
-```name-bold*.woff``` или ```name-bold*-italic.woff``` (Регистр не имеет значения)
+`name-bold*.woff` или `name-bold*-italic.woff` (Регистр не имеет значения)
 > Пример:
-> > Banny-ExtraBoldRound-italic.woff
+> > `Banny-ExtraBoldRound-italic.woff`
+
 > Результат:
-> > .font("Banny", "Banny-ExtraBoldRound-italic", "800", "italic");
-> > ```@font-face {
+> > `.font("Banny", "Banny-ExtraBoldRound-italic", "800", "italic");`
+```css
+@font-face {
   font-family: Banny;
   font-display: swap;
   src: url(../fonts/Banny-ExtraBoldRound-italic.woff) format("woff");
   font-weight: "800";
   font-style: italic
-}```
+}
+```
