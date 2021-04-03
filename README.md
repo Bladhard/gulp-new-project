@@ -34,7 +34,7 @@
 `name-bold*.woff` или `name-bold*-italic.woff` (Регистр не имеет значения)
 
 #### Пример:
-Banny-ExtraBoldRound-italic.woff
+`Banny-ExtraBoldRound-italic.woff`
 
 #### Результат:
 Миксин *Less*
