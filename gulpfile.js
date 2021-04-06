@@ -89,7 +89,7 @@ function css() {
                 }),
             })
         )
-        .pipe(sourcemaps.init())
+        .pipe(gulpif(!isDev, sourcemaps.init()))
         .pipe(
             less({
                 plugins: [autoprefix],
@@ -128,7 +128,7 @@ function css() {
             )
         )
         .pipe(concat('style.min.css'))
-        .pipe(sourcemaps.write('./maps'))
+        .pipe(gulpif(!isDev, sourcemaps.write('./maps')))
         .pipe(dest(path.build.css))
         .pipe(browsersync.stream())
 }
@@ -146,7 +146,7 @@ function js() {
                 }),
             })
         )
-        .pipe(sourcemaps.init())
+        .pipe(gulpif(!isDev, sourcemaps.init()))
         .pipe(
             include({
                 extensions: 'js',
@@ -158,7 +158,7 @@ function js() {
         .pipe(gulpif(isDev, dest(path.build.js)))
         .pipe(gulpif(isDev, uglify()))
         .pipe(concat('script.min.js'))
-        .pipe(sourcemaps.write('./maps'))
+        .pipe(gulpif(!isDev, sourcemaps.write('./maps')))
         .pipe(dest(path.build.js))
         .pipe(browsersync.stream())
 }
@@ -352,7 +352,7 @@ function dev(cb) {
 }
 
 function prod(cb) {
-    var files = ['img/symbol', 'js/maps', 'style/maps']
+    var files = ['img/symbol']
     files.forEach(element => {
         filespath = path.clear + element
         console.log('Удален ' + filespath)
@@ -380,5 +380,5 @@ exports.watchFiles = watchFiles
 exports.browserSync = browserSync
 
 exports.build = series(dev, clear, parallel(html, css, js, images, svg), fonts, fontsStyle, prod)
-const build = series(clear, smartGrid, parallel(html, css, js, images, svg), fonts, fontsStyle)
-exports.default = series(build, parallel(browserSync, watchFiles))
+const preBuild = series(clear, smartGrid, parallel(html, css, js, images, svg), fonts, fontsStyle)
+exports.default = series(preBuild, parallel(browserSync, watchFiles))
