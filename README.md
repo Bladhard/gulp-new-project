@@ -45,7 +45,7 @@
 
 ## Работа с изображениями
 ### gulp-settings.js
-Настройка для работы с [lazyloading](https://github.com/Bladhard/lazy-loading) и изображениями формата webp
+Настройка для работы с [**LazyLoading**](https://github.com/Bladhard/lazy-loading) и изображениями формата webp
 ```javascript
 const settings = {
     webp: {
