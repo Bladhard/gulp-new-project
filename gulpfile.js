@@ -3,6 +3,12 @@ const source_folder = '.src'
 
 const fs = require('fs')
 
+const set = require('./gulp-settings').settings,
+    isWebp = set.webp.webpHTML,
+    isWebpCSS = set.webp.webpCSS,
+    isDataHTML = set.lazyload.dataHTML,
+    isLqip = set.lazyload.lqipBase64
+
 let isDev = false
 
 const path = {
@@ -38,10 +44,12 @@ const settings = require('./.src/js/smartgrid').settings
 const browsersync = require('browser-sync').create()
 const uglify = require('gulp-uglify-es').default
 const fileinclude = require('gulp-file-include')
+const lqipBase64 = require('gulp-lqip-base64')
+const webpHTML = require('gulp-webp-html-fix')
+const dataHTML = require('gulp-datasrc-html')
 const sourcemaps = require('gulp-sourcemaps')
 const svgSprite = require('gulp-svg-sprite')
 const ttf2woff2 = require('gulp-ttf2woff2')
-const webpHTML = require('gulp-webp-html')
 const cleanCSS = require('gulp-clean-css')
 const ttf2woff = require('gulp-ttf2woff')
 const imagemin = require('gulp-imagemin')
@@ -98,10 +106,13 @@ function css() {
         )
         .pipe(cssMediaQueries())
         .pipe(
-            webpcss({
-                webpClass: '.webp',
-                noWebpClass: '.no-webp',
-            })
+            gulpif(
+                isWebpCSS,
+                webpcss({
+                    webpClass: '.webp',
+                    noWebpClass: '.no-webp',
+                })
+            )
         )
         .pipe(
             cleanCSS({
@@ -158,6 +169,7 @@ function js() {
         .pipe(gulpif(isDev, dest(path.build.js)))
         .pipe(gulpif(isDev, uglify()))
         .pipe(concat('script.min.js'))
+        .pipe(gulpif(!isDev, sourcemaps.identityMap()))
         .pipe(gulpif(!isDev, sourcemaps.write('./maps')))
         .pipe(dest(path.build.js))
         .pipe(browsersync.stream())
@@ -182,7 +194,9 @@ function html() {
                 basepath: '@file',
             })
         )
-        .pipe(webpHTML())
+        .pipe(gulpif(isWebp, webpHTML()))
+        .pipe(gulpif(isDataHTML, dataHTML({ ignore: true, tags: 'header' })))
+        .pipe(gulpif(isLqip, lqipBase64({ srcAttr: 'data-src', attribute: 'src' })))
         .pipe(dest(path.build.html))
         .pipe(browsersync.stream())
 }
@@ -193,9 +207,12 @@ function images() {
     return src([path.src.img, '!.src/img/iconsprite/**'])
         .pipe(changed(path.build.img))
         .pipe(
-            webp({
-                quality: 75,
-            })
+            gulpif(
+                isWebp,
+                webp({
+                    quality: 75,
+                })
+            )
         )
         .pipe(dest(path.build.img))
         .pipe(src([path.src.img, '!.src/img/iconsprite/**']))
@@ -335,12 +352,13 @@ function smartGrid(cb) {
 }
 
 function watchFiles() {
-    watch([path.watch.html], html)
-    watch([path.watch.css], css)
-    watch([path.watch.js], js)
-    watch([path.watch.img], images)
-    watch([path.watch.img2], images)
-    watch([path.watch.svg], svg)
+    const delayTime = 200
+    watch([path.watch.html], { delayTime }, html)
+    watch([path.watch.css], { delayTime }, css)
+    watch([path.watch.js], { delayTime }, js)
+    watch([path.watch.img], { delayTime }, images)
+    watch([path.watch.img2], { delayTime }, images)
+    watch([path.watch.svg], { delayTime }, svg)
 }
 
 function clear() {
