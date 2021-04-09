@@ -5,7 +5,7 @@
 * Запустить в папке проекта консоль (в Windows через Shift + правый клик => Windows PowerShell)
 * Пишем команду **`npm i`**
 * Ожидаем установку всех зависимостей
-* Работа с сборкой
+* Работа со сборкой
   * **`gulp`** — задача по умолчанию, позволяет вести разработку в текстовом редакторе и сразу видеть результат в окне браузера
   * **`gulp build`** — сборка проекта (минификация .css/.js файлов, сжатие графики, удаление лишних файлов, архивация проекта)
     * До команды в папке результатов а именно в js и style находятся script.min.js, style.min.js в обычном не сжатом состоянии, после эти файлы сжимаются и в конечном результате добавляются две не сжатые копии дубликаты script.js и style.js.
@@ -34,14 +34,52 @@
 * [**gulp-imagemin**](https://www.npmjs.com/package/gulp-imagemin) - Для сжатия изображений
 * [**webp-converter**](https://www.npmjs.com/package/webp-converter) - Нужен для работы с webp версия 2.2.3!
 * [**gulp-webp**](https://www.npmjs.com/package/gulp-webp) - Преобразование изображения в формат файла webp
-* [**gulp-webp-html**](https://www.npmjs.com/package/gulp-webp-html-fix) - Автодополнение в html правил совместимости с webp
+* [**gulp-webp-html-fix**](https://www.npmjs.com/package/gulp-webp-html-fix) - Автодополнение в html правил совместимости с webp
 * [**gulp-webpcss**](https://www.npmjs.com/package/gulp-webpcss) - Автодополнение в css правил совместимости с webp
-* [**gulp-webp-html**](https://www.npmjs.com/package/gulp-datasrc-html) - Автозамена в html, src, srcset на data-src, data-srcset
-* [**gulp-webp-html**](https://www.npmjs.com/package/gulp-lqip-base64) - Автодополнение в html, изображений base64 по атрибуту data-src
+* [**gulp-datasrc-html**](https://www.npmjs.com/package/gulp-datasrc-html) - Автозамена в html, src, srcset на data-src, data-srcset
+* [**gulp-lqip-base64**](https://www.npmjs.com/package/gulp-lqip-base64) - Автодополнение в html, изображений base64 по атрибуту data-src
 * [**smart-grid**](https://www.npmjs.com/package/smart-grid) - Адаптивная верстка через css
 * [**gulp-less**](https://www.npmjs.com/package/gulp-less) - Компиляция Less файлов
 * [**less-plugin-autoprefix**](https://www.npmjs.com/package/less-plugin-autoprefix) - Добавляет префиксы в CSS код
 * [**gulp-group-css-media-queries**](https://www.npmjs.com/package/gulp-group-css-media-queries) - Группирует все медиа запросы в css в конце файла
+
+## Работа с изображениями
+### gulp-settings.js
+Настройка для работы с [lazyloading](https://github.com/Bladhard/lazy-loading) и изображениями формата webp
+```javascript
+const settings = {
+    webp: {
+        webpHTML: false, // заменяет img на picture + делает копии картинок в webp формат
+        webpCSS: false, // добавляет поддержку webp в css
+    },
+    lazyload: {
+        dataHTML: false, // замена src, srcset на data-src, data-srcset
+        lqipBase64: false, // добавлять Base64 миниатюры в img
+    }
+}
+```
+Настройки активируют следущии плагины
+* **webpHTML**
+  * [gulp-webp-html-fix](https://www.npmjs.com/package/gulp-webp-html-fix)
+  * [gulp-imagemin](https://www.npmjs.com/package/gulp-imagemin)
+* **webpCSS**
+  * [gulp-webpcss](https://www.npmjs.com/package/gulp-webpcss)
+* **dataHTML**
+  * [gulp-datasrc-html](https://www.npmjs.com/package/gulp-datasrc-html)
+* **lqipBase64**
+  * [gulp-lqip-base64](https://www.npmjs.com/package/gulp-lqip-base64)
+
+#### Результат true в webpHTML, dataHTML, lqipBase64
+```html
+<!-- до -->
+<img src="./img/img-8.jpg">
+<!-- после -->
+<picture>
+    <source data-srcset="./img/img-8.webp" type="image/webp">
+    <img data-src="./img/img-8.jpg" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQA...">
+</picture>
+```
+
 
 ## Автоматическое Формирование `@font-face`:
 * Названия шрифтов не должны иметь пробелов, использовать`( -, _ )`
