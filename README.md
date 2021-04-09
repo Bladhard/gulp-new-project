@@ -34,8 +34,10 @@
 * [**gulp-imagemin**](https://www.npmjs.com/package/gulp-imagemin) - Для сжатия изображений
 * [**webp-converter**](https://www.npmjs.com/package/webp-converter) - Нужен для работы с webp версия 2.2.3!
 * [**gulp-webp**](https://www.npmjs.com/package/gulp-webp) - Преобразование изображения в формат файла webp
-* [**gulp-webp-html**](https://www.npmjs.com/package/gulp-webp-html) - Автодополнение в html правил совместимости с webp
+* [**gulp-webp-html**](https://www.npmjs.com/package/gulp-webp-html-fix) - Автодополнение в html правил совместимости с webp
 * [**gulp-webpcss**](https://www.npmjs.com/package/gulp-webpcss) - Автодополнение в css правил совместимости с webp
+* [**gulp-webp-html**](https://www.npmjs.com/package/gulp-datasrc-html) - Автозамена в html, src, srcset на data-src, data-srcset
+* [**gulp-webp-html**](https://www.npmjs.com/package/gulp-lqip-base64) - Автодополнение в html, изображений base64 по атрибуту data-src
 * [**smart-grid**](https://www.npmjs.com/package/smart-grid) - Адаптивная верстка через css
 * [**gulp-less**](https://www.npmjs.com/package/gulp-less) - Компиляция Less файлов
 * [**less-plugin-autoprefix**](https://www.npmjs.com/package/less-plugin-autoprefix) - Добавляет префиксы в CSS код
