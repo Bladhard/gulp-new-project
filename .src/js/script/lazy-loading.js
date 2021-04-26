@@ -6,7 +6,7 @@
  ** *`data-src`* - дата атрибут для остальных форматов
  */
 
-function LazyLoad(options = false) {
+export function LazyLoad(options = false) {
     const defaults = {
         selector: 'lazyload',
         root: null,
@@ -49,7 +49,9 @@ function LazyLoad(options = false) {
                                 img.src = img.dataset.src
                                 img.removeAttribute('data-src')
                             } catch (TypeError) {
-                                entry.target.src = entry.target.dataset.src
+                                if (entry.target.dataset.src) {
+                                    entry.target.src = entry.target.dataset.src
+                                }
                                 entry.target.removeAttribute('data-src')
                             }
                         }
@@ -73,3 +75,5 @@ function LazyLoad(options = false) {
     selectorAll(`div.${selector}`, 'div')
     selectorAll(`img.${selector}`, 'img')
 }
+
+// exports.default = LazyLoad
