@@ -1,3 +1,5 @@
-//=require ./include/*.js
+import { LazyLoad } from './script/lazy-loading'
 
-//=include
+window.addEventListener('DOMContentLoaded', () => {
+    LazyLoad()
+})

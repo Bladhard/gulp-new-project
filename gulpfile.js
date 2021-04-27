@@ -3,6 +3,8 @@ const source_folder = '.src'
 
 const fs = require('fs')
 
+const setWebpuck = require('./gulp-settings').webpackSetting
+
 const set = require('./gulp-settings').settings,
     isWebp = set.webp.webpHTML,
     isWebpCSS = set.webp.webpCSS,
@@ -42,7 +44,6 @@ const { src, dest, watch, parallel, series } = require('gulp')
 const cssMediaQueries = require('gulp-group-css-media-queries')
 const settings = require('./.src/js/smartgrid').settings
 const browsersync = require('browser-sync').create()
-const uglify = require('gulp-uglify-es').default
 const fileinclude = require('gulp-file-include')
 const lqipBase64 = require('gulp-lqip-base64')
 const webpHTML = require('gulp-webp-html-fix')
@@ -53,7 +54,7 @@ const ttf2woff2 = require('gulp-ttf2woff2')
 const cleanCSS = require('gulp-clean-css')
 const ttf2woff = require('gulp-ttf2woff')
 const imagemin = require('gulp-imagemin')
-const include = require('gulp-include')
+const webpack = require('webpack-stream')
 const webpcss = require('gulp-webpcss')
 const plumber = require('gulp-plumber')
 const changed = require('gulp-changed')
@@ -145,7 +146,6 @@ function css() {
 }
 
 /*=======================| JavaScript |=======================*/
-
 function js() {
     return src(path.src.js)
         .pipe(
@@ -157,24 +157,13 @@ function js() {
                 }),
             })
         )
-        .pipe(gulpif(!isDev, sourcemaps.init()))
-        .pipe(
-            include({
-                extensions: 'js',
-                hardFail: true,
-                includePaths: [__dirname + '/.src/js'],
-            })
-        )
-        .pipe(gulpif(isDev, concat('script.js')))
-        .pipe(gulpif(isDev, dest(path.build.js)))
-        .pipe(gulpif(isDev, uglify()))
-        .pipe(concat('script.min.js'))
-        .pipe(gulpif(!isDev, sourcemaps.identityMap()))
-        .pipe(gulpif(!isDev, sourcemaps.write('./maps')))
+        .pipe(gulpif(isDev, webpack(setWebpuck.prod), webpack(setWebpuck.build)))
         .pipe(dest(path.build.js))
         .pipe(browsersync.stream())
 }
-
+function jsNoUglify() {
+    return src(path.src.js).pipe(webpack(setWebpuck.noUglify)).pipe(dest(path.build.js))
+}
 /*=======================| HTML |=======================*/
 
 function html() {
@@ -397,6 +386,13 @@ exports.js = js
 exports.watchFiles = watchFiles
 exports.browserSync = browserSync
 
-exports.build = series(dev, clear, parallel(html, css, js, images, svg), fonts, fontsStyle, prod)
+exports.build = series(
+    dev,
+    clear,
+    parallel(html, css, jsNoUglify, js, images, svg),
+    fonts,
+    fontsStyle,
+    prod
+)
 const preBuild = series(clear, smartGrid, parallel(html, css, js, images, svg), fonts, fontsStyle)
 exports.default = series(preBuild, parallel(browserSync, watchFiles))

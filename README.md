@@ -21,7 +21,6 @@
 * [**gulp-changed**](https://www.npmjs.com/package/gulp-changed) - Позволяет обрабатывать только те файлы которые изменились
 * [**gulp-clean-css**](https://www.npmjs.com/package/gulp-clean-css) - Минификация и оптимизация CSS файлов
 * [**gulp-concat**](https://www.npmjs.com/package/gulp-concat) -  Переименовывает файлы (Объединение нескольких файлов в один)
-* [**gulp-include**](https://www.npmjs.com/package/gulp-include) - Объединяет файлы (использую для JS позволяет использовать sourcemaps)
 * [**gulp-file-include**](https://www.npmjs.com/package/gulp-file-include) - Объединяет файлы (использую для html)
 * [**gulp-plumber**](https://www.npmjs.com/package/gulp-plumber) - Позволяет работать gulp после появления ошибки
 * [**gulp-notify**](https://www.npmjs.com/package/gulp-notify) - Показывает уведомление об ошибки
@@ -30,7 +29,6 @@
 * [**gulp-ttf2woff**](https://www.npmjs.com/package/gulp-ttf2woff) - Cоздает шрифт WOFF из TTF-шрифта
 * [**gulp-ttf2woff2**](https://www.npmjs.com/package/gulp-ttf2woff2) - Cоздает шрифт WOFF2 из TTF-шрифта
 * [**gulp-svg-sprite**](https://www.npmjs.com/package/gulp-svg-sprite) - Создание SVG спрайтов
-* [**gulp-uglify-es**](https://www.npmjs.com/package/gulp-uglify-es) - Сжатие и оптимизация Java Script кода
 * [**gulp-imagemin**](https://www.npmjs.com/package/gulp-imagemin) - Для сжатия изображений
 * [**webp-converter**](https://www.npmjs.com/package/webp-converter) - Нужен для работы с webp версия 2.2.3!
 * [**gulp-webp**](https://www.npmjs.com/package/gulp-webp) - Преобразование изображения в формат файла webp
@@ -42,7 +40,12 @@
 * [**gulp-less**](https://www.npmjs.com/package/gulp-less) - Компиляция Less файлов
 * [**less-plugin-autoprefix**](https://www.npmjs.com/package/less-plugin-autoprefix) - Добавляет префиксы в CSS код
 * [**gulp-group-css-media-queries**](https://www.npmjs.com/package/gulp-group-css-media-queries) - Группирует все медиа запросы в css в конце файла
-
+* [**webpack**](https://www.npmjs.com/package/webpack) - Модульность в JS
+* [**webpack-stream**](https://www.npmjs.com/package/webpack-stream) - Webpack как поток для gulp
+* [**core-js**](https://www.npmjs.com/package/core-js*) - Включает в себя полифиллы для ECMAScript до 2021года
+* [**babel-loader**](https://www.npmjs.com/package/babel-loader) - Этот пакет позволяет транспилировать файлы JavaScript с помощью Babel и webpack.
+* [**@babel/core**](https://www.npmjs.com/package/@babel/core) - Ядро компилятора Babel
+* [**@babel/preset-env**](https://www.npmjs.com/package/@babel/preset-env) - Предустановка Babel для каждой среды
 ## Работа с изображениями
 ### gulp-settings.js
 Настройка для работы с [**LazyLoading**](https://github.com/Bladhard/lazy-loading) и изображениями формата webp
